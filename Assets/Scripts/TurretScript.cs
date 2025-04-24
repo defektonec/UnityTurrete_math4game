@@ -10,7 +10,6 @@ public class TurretScript : MonoBehaviour
     [SerializeField][Range(20f, 180f)] private float turretHorizontalAngle;
     [SerializeField][Range(0f, 90)] private float turretVerticalAngle;
     [SerializeField] private string[] targetTags;
-    [SerializeField] SphereCollider triggerZone;
 
     private float currentHorizontalAngle;
     private float currentVerticalAngle;
@@ -24,7 +23,6 @@ public class TurretScript : MonoBehaviour
     void Start()
     {
         defaultLookingDirection = transform.rotation;
-        currentEnemyTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         if (targetTags.Length > 0 )
         {
@@ -40,11 +38,12 @@ public class TurretScript : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, defaultLookingDirection, Time.deltaTime * 2f);
         }
-
         // If there is no enemy in list just return
-        if (enemiesList.Count == 0) return;
-        else currentEnemyTransform = enemiesList[0].transform;
-            
+        if (enemiesList.Count == 0) 
+            return;
+        else 
+            currentEnemyTransform = enemiesList[0].transform;
+
         directionToTarget = currentEnemyTransform.position - transform.position;
 
         Vector3 flatDirection = new Vector3(directionToTarget.x, 0f, directionToTarget.z);
@@ -56,9 +55,7 @@ public class TurretScript : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(currentEnemyTransform.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
         }
-
     }
-
 
     private bool CheckEnemyVisibility()
     {
@@ -66,12 +63,12 @@ public class TurretScript : MonoBehaviour
         if (currentHorizontalAngle < turretHorizontalAngle && currentVerticalAngle < turretVerticalAngle)
         {
             //Check if there is no obstacles between enemy and turrete
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, directionToTarget, out hit, triggerZone.radius)
-                && hit.transform.tag == enemiesList[0].gameObject.tag)
-            {
+            //RaycastHit hit;
+            //if (Physics.Raycast(transform.position, directionToTarget, out hit)
+            //    && hit.transform.tag == enemiesList[0].gameObject.tag)
+            //{
                 return true;
-            }
+            //}
         }
 
         return false;
