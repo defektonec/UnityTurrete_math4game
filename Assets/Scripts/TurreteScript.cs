@@ -43,6 +43,6 @@ public class TurreteScript : MonoBehaviour
 
     private bool CheckPlayerVisibility()
     {
-        return distance < radius && currentHorizontalAngle < turreteHorizontalAngle && currentVerticalAngle < turreteVerticalAngle;
+        return (distance < radius && currentHorizontalAngle < turreteHorizontalAngle && currentVerticalAngle < turreteVerticalAngle);
     }
 }
