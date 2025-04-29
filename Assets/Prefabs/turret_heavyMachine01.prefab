@@ -336,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretHorizontalAngle: 180
   turretVerticalAngle: 60
+  turreteRotationSpeed: 1
   targetTags:
   - Player
   - Enemy
